@@ -1,0 +1,57 @@
+@media only screen and (max-width: 700px) {
+ 
+    .inputflex {
+   flex-direction: column;
+   align-items: flex-end;
+  }
+  .inputflexbtn{
+    display: flex;
+    justify-content: end;
+    width: 100%;
+  
+  }
+  }  
+   .container{
+  
+          margin: 20px auto;
+          width: 50%;
+          display:  flex;
+          padding: 10px;
+          justify-content: center;
+          align-items:center;
+          /* flex-direction: column; */
+          background-color: white;
+      }
+     
+      .inputflex{
+      
+          display: flex;
+           width: 100%;
+          
+          justify-content: center;
+          align-items: start;
+  
+          /* margin: auto;
+          display: flex;
+          flex-wrap: wrap;
+          width: 100%;
+          justify-content: center;
+            align-items: center;
+           flex-direction: row;
+           gap: 10px; */
+      }
+      .inputflexbtn{
+  align-items: flex-end;
+        
+      }
+      .inputerror{
+          width: 100%;
+          display: flex;
+           flex-direction: column;
+           /* align-items: flex-start; */
+           justify-content: flex-start;
+       }
+    .invalid input {
+      border-color: #aa0b20;
+      background-color: #ffeff1;
+    }

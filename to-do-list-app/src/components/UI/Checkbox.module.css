@@ -1,0 +1,18 @@
+.container{
+
+    /* cursor: pointer; */
+    width: 40px;
+    height: 40px;
+    /* top: 0;
+    left: 0; */
+    background-color: #eee;
+    margin: 10px;
+    }
+  
+  .container:hover input {
+    background-color: #ff3e3e;
+  }
+  /* .checkbox input:checked ~ .checkmark:after {
+    display: block;
+  } */
+  

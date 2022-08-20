@@ -1,0 +1,64 @@
+ 
+.smbutton {
+  margin: 10px;
+    cursor: pointer;
+    font: inherit;
+    border: none;   
+  padding: 5px 30px;
+
+    background-color: #0066ff;
+    color: white;
+    
+    border-radius: 25px;
+    /* font-weight: bold; */
+    }
+   
+   
+.mdbutton {
+  cursor: pointer;
+  font: inherit;
+  border: none;   
+  margin: 10px;
+ 
+  padding: .75rem 4rem;
+  /* background-color: #0066ff; */
+  color: white;
+  /* padding: 0.75rem 3rem; */
+  /* display: flex;
+  justify-content: space-around; */
+  /* align-items: center; */
+  border-radius: 25px;
+  font-weight: bold;
+  }
+ 
+ 
+.lgbutton {
+  margin: 10px;
+  cursor: pointer;
+  font: inherit;
+  border: none;   
+  padding: .75rem 5rem;
+  background-color: #0066ff;
+  color: white;
+  /* padding: 0.75rem 3rem; */
+  /* display: flex;
+  justify-content: space-around; */
+  /* align-items: center; */
+  border-radius: 25px;
+  font-weight: bold;
+  }
+
+.smbutton:hover,
+.mdbutton:hover,
+.lgbutton:hover,
+.smbutton:active,
+.mdbutton:active,
+.lgbutton:active {
+  background-color: #949393;
+}
+.red{
+  background-color: red;
+}
+.blue{
+  background-color: rgb(50, 88, 255);
+}

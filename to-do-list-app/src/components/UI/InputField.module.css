@@ -1,0 +1,21 @@
+
+.input{
+    cursor: pointer;
+    font: inherit;
+    width: 100%;
+    padding: 8px ;
+    margin: 8px 0;
+    box-sizing: border-box;
+    /* font-weight: bold; */
+    /* font-size: large; */
+    font-family: Arial, Helvetica, sans-serif;
+    /* background-color: rgb(95, 215, 255); */
+
+}
+.valid {
+    background-color: lightblue;
+  }
+  .invalid{
+    border-color: #aa0b20;
+    background-color: #ebbe4d;
+  }
