@@ -8,7 +8,7 @@
 
     background-color: #0066ff;
     color: white;
-    
+    width :100px;
     border-radius: 25px;
     /* font-weight: bold; */
     }
@@ -28,7 +28,7 @@
   justify-content: space-around; */
   /* align-items: center; */
   border-radius: 25px;
-  font-weight: bold;
+  /* font-weight: bold; */
   }
  
  

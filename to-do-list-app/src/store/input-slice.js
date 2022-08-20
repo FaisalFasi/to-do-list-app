@@ -5,11 +5,18 @@ const InputSlice = createSlice({
   reducers: {
     addTask(state, action) {
       state.tasks = action.payload;
-      console.log("payload ", state.tasks);
+      // console.log("payload ", state.tasks);
     },
     removeTask(state, action) {
       const id = action.payload;
       state.tasks = state.tasks.filter((task) => task.id !== id);
+    },
+    updataTask(state, action) {
+      const id = action.payload;
+
+      const updatingTask = state.tasks.filter((task) => task.id === id);
+      // updatingTask.task;
+      console.log("updatingTask: ", updatingTask);
     },
   },
 });
