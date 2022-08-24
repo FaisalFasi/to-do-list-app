@@ -1,21 +1,21 @@
 // import Button from "./Button";
-import Checkbox from "./Checkbox";
-import classes from "./AddTask.module.css";
+import Checkbox from "@UI/Checkbox";
+import classes from "./index.module.css";
 import { AiFillEdit, AiTwotoneDelete } from "react-icons/ai";
-import Card from "./Card";
+import Card from "@UI/Card";
 
-const AddTask = (props) => {
+const Task = (props) => {
   return (
     <Card>
       <div className={classes.container}>
         <div className={classes.checkboxflex}>
           <Checkbox />
-          <p>{props.task.task}</p>
+          <p>{props.task.name}</p>
         </div>
         <div className={classes.iconsflex}>
           <span>
             <AiFillEdit
-              onClick={props.isEditTask}
+              onClick={() => props.onUpdate(props.task.id)}
               className={classes.editstyle}
               size={20}
               onMouseOver={({ target }) => (target.style.color = "white")}
@@ -38,4 +38,4 @@ const AddTask = (props) => {
   );
 };
 
-export default AddTask;
+export default Task;

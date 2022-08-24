@@ -1,15 +1,17 @@
-import classes from "./InputForm.module.css";
-import useInputs from "../hooks/task-inputs";
-import Button from "../UI/Button";
-import InputField from "../UI/InputField";
+import { useDispatch } from "react-redux";
+import SearchBar from "@UI/SearchBar";
+import classes from "./index.module.css";
+import useInputs from "@/hooks/task-inputs";
+import Button from "@UI/Button";
+import InputField from "@UI/InputField";
 
-// import { inputActions } from "../../store/input-slice";
-// import { useDispatch } from "react-redux";
-const InputForm = (props) => {
-  // const dispatch = useDispatch();
+import { tasksActions } from "@/store/tasks-slice";
+
+const AddTask = (props) => {
+  const dispatch = useDispatch();
 
   const {
-    value: enteredTask,
+    value: enteredTaskName,
     inputIsValid: enteredTaskIsValid,
     inputIsInvalid: enteredTaskIsInvalid,
     valueChangeHandler: enteredTaskChangedHandler,
@@ -26,13 +28,15 @@ const InputForm = (props) => {
     try {
       const response = await fetch("http://localhost:3500/tasks", {
         method: "POST",
-        body: JSON.stringify({ task: enteredTask, id: new Date().now }),
+        body: JSON.stringify({ name: enteredTaskName, id: new Date().now }),
         headers: { "Content-type": "application/json" },
       });
 
       if (!response.ok) {
         throw new Error("sending data failed ");
       }
+      const data = await response.json();
+      dispatch(tasksActions.addTask(data));
     } catch (error) {
       console.log(error);
     }
@@ -45,14 +49,13 @@ const InputForm = (props) => {
     }
     postData();
     enteredTaskReset();
-    props.setSubmit();
   };
   return (
     <form onSubmit={onAddTaskHandler} className={classes.container}>
       <div className={classes.inputflex}>
         <div className={classes.inputerror}>
           <InputField
-            value={enteredTask}
+            value={enteredTaskName}
             isValid={`${!enteredTaskIsInvalid ? "valid" : "invalid"}`}
             placeholder="Enter your Tasks Here!"
             onChange={enteredTaskChangedHandler}
@@ -69,4 +72,4 @@ const InputForm = (props) => {
   );
 };
 
-export default InputForm;
+export default AddTask;
