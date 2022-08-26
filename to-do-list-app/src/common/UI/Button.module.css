@@ -13,6 +13,10 @@
     /* font-weight: bold; */
     }
    
+    .disabled{
+      background-color: rgb(115, 115, 115) !important;
+      cursor: not-allowed;
+    }
    
 .mdbutton {
   cursor: pointer;

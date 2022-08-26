@@ -11,6 +11,7 @@ const inputReducerFunc = (state, action) => {
   if (action.type === "BLUR") {
     return { isTouched: true, value: state.value };
   }
+
   if (action.type === "RESET") {
     return { value: "", isTouched: false };
   }
@@ -26,6 +27,11 @@ const useInputs = (validationCheck) => {
   const valueChangeHandler = (event) => {
     dispatch({ type: "INPUT", value: event.target.value });
   };
+
+  const valueUpdateHandler = (value) => {
+    dispatch({ type: "INPUT", value: value });
+  };
+
   const blurInputHandler = () => {
     dispatch({ type: "BLUR" });
     console.log("blur" + initialState.isTouched);
@@ -41,6 +47,7 @@ const useInputs = (validationCheck) => {
     valueChangeHandler,
     blurInputHandler,
     resetHandler,
+    valueUpdateHandler,
   };
 };
 export default useInputs;

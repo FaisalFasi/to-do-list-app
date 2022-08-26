@@ -18,8 +18,10 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+    "server": "npx json-server --watch db.json --port 3500",
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
+    "dev": "concurrently \"npm:start\" \"npm:server\"",
     "test": "react-app-rewired test",
     "eject": "react-scripts eject"
   },
@@ -42,7 +44,9 @@
     ]
   },
   "devDependencies": {
+    "concurrently": "^7.3.0",
     "gh-pages": "^4.0.0",
+    "prettier": "^2.7.1",
     "react-app-rewire-alias": "^1.1.7",
     "react-app-rewired": "^2.2.1"
   }

@@ -7,50 +7,58 @@ import useInputs from "@/hooks/task-inputs";
 
 import { tasksActions } from "@/store/tasks-slice";
 import { useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
 
 const EditTask = (props) => {
   const dispatch = useDispatch();
-
+  const [disabled, setDiabled] = useState(true);
   const {
-    value: enteredTaskName,
-    inputIsValid: enteredTaskIsValid,
-    inputIsInvalid: enteredTaskIsInvalid,
-    valueChangeHandler: enteredTaskChangedHandler,
-    blurInputHandler: enteredTaskBlurHandler,
-    resetHandler: enteredTaskReset,
+    value,
+    inputIsValid,
+    inputIsInvalid,
+    valueChangeHandler,
+    blurInputHandler,
+    resetHandler,
+    valueUpdateHandler,
   } = useInputs((value) => value.trim().length > 5);
 
-  let formIsValid = false;
+  useEffect(() => {
+    valueUpdateHandler(props.taskId.name);
+  }, []);
 
-  if (enteredTaskIsValid) {
-    formIsValid = true;
-  }
+  useEffect(() => {
+    if (value === props.taskId.name) {
+      setDiabled(true);
+    } else {
+      setDiabled(false);
+    }
+  }, [value, props.taskId.name]);
+
   const updateTaskData = async () => {
     const response = await fetch(
-      "http://localhost:3500/tasks/" + props.taskId,
+      "http://localhost:3500/tasks/" + props.taskId.id,
       {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name: enteredTaskName }),
+        body: JSON.stringify({ name: value }),
       }
     );
     if (!response.ok) {
       throw new Error("sending data failed ");
     }
     const responseData = await response.json();
-    console.log(responseData, "data");
     dispatch(tasksActions.updateTask(responseData));
   };
 
   const onUpdateTaskHandler = (event) => {
     event.preventDefault();
 
-    if (enteredTaskIsInvalid) {
+    if (inputIsInvalid) {
       return;
     }
     updateTaskData();
     props.onClose();
-    enteredTaskReset();
+    resetHandler();
   };
   return (
     <Modal closeModal={props.onClose}>
@@ -59,17 +67,18 @@ const EditTask = (props) => {
           <div className={classes.itemflex}>
             <label> Update Task</label>
             <InputField
-              value={enteredTaskName}
-              isValid={`${!enteredTaskIsInvalid ? "valid" : "invalid"}`}
+              value={value}
+              isValid={`${inputIsValid ? "valid" : "invalid"}`}
               placeholder="Enter your Tasks Here!"
-              onChange={enteredTaskChangedHandler}
-              onBlur={enteredTaskBlurHandler}
-            />{" "}
+              onChange={valueChangeHandler}
+              onBlur={blurInputHandler}
+            />
           </div>
           <Button
             size="smbutton"
             color="blue"
             name="Save"
+            disabled={disabled}
             onClick={onUpdateTaskHandler}
           />
           <Button

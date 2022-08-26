@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-
 import SearchBar from "@UI/SearchBar";
 import Task from "./components/ViewTask";
 import AddTask from "./components/AddTask";
@@ -8,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { tasksActions } from "@/store/tasks-slice";
 import ErrorBoundary from "@/error/ErrorBoundry";
 import EditTask from "./components/EditTask";
+import Card from "../common/UI/Card";
 const TodoIndux = (props) => {
   const inputTask = useSelector((state) => state.tasks.tasks);
   const dispatch = useDispatch();
@@ -15,12 +15,15 @@ const TodoIndux = (props) => {
   const [updateTaskId, setUpdateTaskId] = useState(null);
   const [query, setQuery] = useState("");
   const [allTasks, setAllTasks] = useState([]);
+  // console.log(alert());
   useEffect(() => {
     if (inputTask) {
       setAllTasks(inputTask);
     }
   }, [inputTask]);
-
+  useEffect(() => {
+    console.log("UseEffect");
+  }, []);
   useEffect(() => {
     const getData = async () => {
       try {
@@ -59,8 +62,8 @@ const TodoIndux = (props) => {
     deleteData();
   };
 
-  const updateTaskID = (id) => {
-    setUpdateTaskId(id);
+  const updateTaskID = (task) => {
+    setUpdateTaskId(task);
     setIsEditForm(!isEditForm);
   };
   const setQueryHandler = (e) => {
@@ -72,6 +75,9 @@ const TodoIndux = (props) => {
       const filter = inputTask.filter((obj) =>
         obj.name.toLowerCase().includes(query)
       );
+      if (filter.length < 1) {
+      }
+
       setAllTasks(filter);
     }, 500);
     return () => clearTimeout(timer);
@@ -102,9 +108,7 @@ const TodoIndux = (props) => {
 
       setAllTasks(sortingTasks);
     }
-    console.log(e.target.value, "value ");
   };
-  console.log(allTasks, "all Tasks array ");
 
   return (
     <>
@@ -123,6 +127,11 @@ const TodoIndux = (props) => {
               onUpdate={updateTaskID}
             />
           ))}
+        {allTasks.length < 1 && (
+          <Card>
+            <div>No Data Found</div>
+          </Card>
+        )}
         {isEditForm && (
           <EditTask onClose={onCloseModel} taskId={updateTaskId} />
         )}

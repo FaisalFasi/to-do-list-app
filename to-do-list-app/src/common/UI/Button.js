@@ -11,7 +11,9 @@ const Button = ({
 }) => {
   return (
     <button
-      className={`${classes[size]} ${classes[color]}`}
+      className={`${classes[size]} ${classes[color]} ${
+        classes[disabled && "disabled"]
+      } `}
       type={type}
       value={value}
       onClick={onClick}

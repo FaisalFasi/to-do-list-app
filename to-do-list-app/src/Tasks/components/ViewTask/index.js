@@ -15,7 +15,7 @@ const Task = (props) => {
         <div className={classes.iconsflex}>
           <span>
             <AiFillEdit
-              onClick={() => props.onUpdate(props.task.id)}
+              onClick={() => props.onUpdate(props.task)}
               className={classes.editstyle}
               size={20}
               onMouseOver={({ target }) => (target.style.color = "white")}
