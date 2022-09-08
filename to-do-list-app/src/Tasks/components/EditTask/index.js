@@ -1,13 +1,12 @@
-import Button from "@UI/Button";
-import Card from "@UI/Card";
-import InputField from "@UI/InputField";
-import classes from "./index.module.css";
-import Modal from "@UI/Modal";
-import useInputs from "@/hooks/task-inputs";
+import Button from "@mui/material/Button";
 
+import useInputs from "@/hooks/task-inputs";
+import Grid from "@mui/material/Grid";
 import { tasksActions } from "@/store/tasks-slice";
 import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
+import Backdrop from "@mui/material/Backdrop";
+import TextField from "@mui/joy/TextField";
 
 const EditTask = (props) => {
   const dispatch = useDispatch();
@@ -27,12 +26,8 @@ const EditTask = (props) => {
   }, []);
 
   useEffect(() => {
-    if (value === props.taskId.name) {
-      setDiabled(true);
-    } else {
-      setDiabled(false);
-    }
-  }, [value, props.taskId.name]);
+    value === props.taskId.name ? setDiabled(true) : setDiabled(false);
+  }, [props.taskId.name, value]);
 
   const updateTaskData = async () => {
     const response = await fetch(
@@ -60,37 +55,103 @@ const EditTask = (props) => {
     props.onClose();
     resetHandler();
   };
+
+  const [open, setOpen] = useState(false);
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const handleToggle = () => {
+    setOpen(!open);
+  };
   return (
-    <Modal closeModal={props.onClose}>
-      <Card>
-        <div className={classes.buttonflex}>
-          <div className={classes.itemflex}>
-            <label> Update Task</label>
-            <InputField
-              value={value}
-              isValid={`${inputIsValid ? "valid" : "invalid"}`}
-              placeholder="Enter your Tasks Here!"
-              onChange={valueChangeHandler}
-              onBlur={blurInputHandler}
-            />
-          </div>
+    <Backdrop
+      // closeModal={props.onClose}
+      sx={{
+        zIndex: (theme) => theme.zIndex.drawer + 1,
+        backgroundColor: "lightgray",
+      }}
+      open={true}
+      onClick={handleClose}
+    >
+      <Grid
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          backgroundColor: "#F0F0F0",
+        }}
+        container
+        spacing={2}
+        height="150px"
+        width={"50%"}
+      >
+        <Grid item sm={8}>
+          <TextField
+            label="Update your task:"
+            value={value}
+            // isValid={`${inputIsValid ? "valid" : "invalid"}`}
+            placeholder="Enter your Tasks Here!"
+            onChange={valueChangeHandler}
+            onBlur={blurInputHandler}
+          />
+        </Grid>
+        <Grid
+          item
+          sm={4}
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            gap: "10px",
+            mt: 3,
+          }}
+        >
           <Button
-            size="smbutton"
-            color="blue"
-            name="Save"
+            variant="contained"
             disabled={disabled}
             onClick={onUpdateTaskHandler}
-          />
+            // onClick={onAddTaskHandler}
+          >
+            UPDATE
+          </Button>
           <Button
-            size="smbutton"
-            color="blue"
-            name="Close"
+            variant="contained"
+            // onClick={onAddTaskHandler}
             onClick={props.onClose}
-          />
-        </div>
-      </Card>
-    </Modal>
+          >
+            CLOSE
+          </Button>
+        </Grid>
+      </Grid>
+    </Backdrop>
   );
 };
 
 export default EditTask;
+//< Modal closeModal={props.onClose}>
+//       <Card>
+//         <div className={classes.buttonflex}>
+//           <div className={classes.itemflex}>
+//             <label> Update Task</label>
+//             <InputField
+//               value={value}
+//               isValid={`${inputIsValid ? "valid" : "invalid"}`}
+//               placeholder="Enter your Tasks Here!"
+//               onChange={valueChangeHandler}
+//               onBlur={blurInputHandler}
+//             />
+//           </div>
+//           <Button
+//             size="smbutton"
+//             color="blue"
+//             name="Save"
+//             disabled={disabled}
+//             onClick={onUpdateTaskHandler}
+//           />
+//           <Button
+//             size="smbutton"
+//             color="blue"
+//             name="Close"
+//             onClick={props.onClose}
+//           />
+//         </div>
+//       </Card>
+//     </Modal>

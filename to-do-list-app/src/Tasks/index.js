@@ -7,7 +7,10 @@ import { useDispatch } from "react-redux";
 import { tasksActions } from "@/store/tasks-slice";
 import ErrorBoundary from "@/error/ErrorBoundry";
 import EditTask from "./components/EditTask";
-import Card from "../common/UI/Card";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import { Container } from "@mui/material";
+
 const TodoIndux = (props) => {
   const inputTask = useSelector((state) => state.tasks.tasks);
   const dispatch = useDispatch();
@@ -15,7 +18,6 @@ const TodoIndux = (props) => {
   const [updateTaskId, setUpdateTaskId] = useState(null);
   const [query, setQuery] = useState("");
   const [allTasks, setAllTasks] = useState([]);
-  // console.log(alert());
   useEffect(() => {
     if (inputTask) {
       setAllTasks(inputTask);
@@ -65,6 +67,7 @@ const TodoIndux = (props) => {
   const updateTaskID = (task) => {
     setUpdateTaskId(task);
     setIsEditForm(!isEditForm);
+    console.log("task ", task);
   };
   const setQueryHandler = (e) => {
     e.preventDefault();
@@ -111,32 +114,37 @@ const TodoIndux = (props) => {
   };
 
   return (
-    <>
-      <ErrorBoundary>
-        <AddTask />
-        <SearchBar
-          sortingHandler={sortingClickHandler}
-          onChangeQuery={setQueryHandler}
-        />
-        {allTasks &&
-          allTasks.map((task) => (
-            <Task
-              key={task.id}
-              task={task}
-              onDelete={onDeleteHandler}
-              onUpdate={updateTaskID}
+    <ErrorBoundary>
+      <Container maxWidth="md">
+        <Card>
+          <CardContent>
+            <AddTask />
+            <SearchBar
+              sortingHandler={sortingClickHandler}
+              onChangeQuery={setQueryHandler}
             />
-          ))}
-        {allTasks.length < 1 && (
-          <Card>
-            <div>No Data Found</div>
-          </Card>
-        )}
-        {isEditForm && (
-          <EditTask onClose={onCloseModel} taskId={updateTaskId} />
-        )}
-      </ErrorBoundary>
-    </>
+
+            {allTasks &&
+              allTasks.map((task) => (
+                <Task
+                  key={task.id}
+                  task={task}
+                  onDelete={onDeleteHandler}
+                  onUpdate={updateTaskID}
+                />
+              ))}
+            {allTasks.length < 1 && (
+              <Card>
+                <div>No Data Found</div>
+              </Card>
+            )}
+            {isEditForm && (
+              <EditTask onClose={onCloseModel} taskId={updateTaskId} />
+            )}
+          </CardContent>
+        </Card>
+      </Container>
+    </ErrorBoundary>
   );
 };
 export default TodoIndux;

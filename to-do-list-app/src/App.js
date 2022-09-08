@@ -1,12 +1,9 @@
 import React from "react";
-import Tasks from "./Tasks";
-import DropDown from "@UI/DropDown";
-import Card from "./common/UI/Card";
+import TodoIndux from "./Tasks";
 function App() {
-  // console.log(DUMMYDATA);
   return (
     <>
-      <Tasks />
+      <TodoIndux></TodoIndux>
     </>
   );
 }
